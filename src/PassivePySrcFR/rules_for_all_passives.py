@@ -14,6 +14,18 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
 
     #--------------------------rules--------------------#
 
+
+
+    passive_rule_0 = [
+        {"POS":"AUX", "DEP": "aux", "OP":"*"},
+        {"POS":"AUX", "DEP": "aux:pass", "OP":"+"},
+        {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
+        {"DEP":"HYPH", "OP":"*"},
+        {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
+        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : verbs_list }},
+        {"LOWER":"par"}
+    ]
+    # exemple : J'ai été attaqué par des loups !
     
     passive_rule_1 = [
         {"POS":"AUX", "DEP": "aux", "OP":"*"},
@@ -21,7 +33,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
-        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : verbs_list + ['be']}}
+        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : verbs_list }}
     ]
 
     """
@@ -113,6 +125,10 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["VerbForm=Inf"]}}, # un verbe à l'infinitif
         {"LOWER":"par","OP":"*"} #la proposition "par" qui est facultative
     ]
+
+    passive_rule_8 = [
+        {"TAG":"ADJ", "TEXT" : {"REGEX": r"\b(\w*(ible|able))\b"}}, # adjectif se finnissant par ible ou able
+    ]
     
     """
     Formes passives factitives
@@ -128,15 +144,15 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
 
 
     # ------------------adding rules to the matcher----------#
-
-    matcher.add("passive_rule_1", [passive_rule_1], greedy='LONGEST')
-    matcher.add("passive_rule_2", [passive_rule_2], greedy='LONGEST')
-    matcher.add("passive_rule_3", [passive_rule_3], greedy='LONGEST')
-    matcher.add("passive_rule_4", [passive_rule_4], greedy='LONGEST')
-    matcher.add("passive_rule_5", [passive_rule_5], greedy='LONGEST')
-    matcher.add("passive_rule_6", [passive_rule_6], greedy='LONGEST')
-    matcher.add("passive_rule_7", [passive_rule_7], greedy='LONGEST')
-
+    matcher.add("passif_canonique", [passive_rule_0], greedy='LONGEST')
+    matcher.add("passif_tronqué", [passive_rule_1], greedy='LONGEST')
+    matcher.add("passive_rule_2", [passive_rule_2], greedy='LONGEST') # n'exhioste pas en français à priori
+    matcher.add("passif_sequencé", [passive_rule_3], greedy='LONGEST')
+    matcher.add("passif_impersonel", [passive_rule_4], greedy='LONGEST')
+    matcher.add("passive_rule_5", [passive_rule_5], greedy='LONGEST')# n'existe pas en français je pense
+    matcher.add("passif_verbale", [passive_rule_6], greedy='LONGEST')
+    matcher.add("passif_factif", [passive_rule_7], greedy='LONGEST')
+    matcher.add("passif_adjectif", [passive_rule_8], greedy='LONGEST')
     # print('Matcher is built.')
 
     return nlp, matcher
