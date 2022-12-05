@@ -1,5 +1,5 @@
 pandas==1.5.2
 spacy==3.4.3
-fr-core-news-lg==3.4.0
+https://github.com/explosion/spacy-models/releases/download/fr_core_news_lg-3.4.0/fr_core_news_lg-3.4.0-py3-none-any.whl
 streamlit==1.15.2
 termcolor
