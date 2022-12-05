@@ -16,6 +16,8 @@ except:
     from PassivePySrcFR.rules_for_full_passives import create_matcher_full
     from PassivePySrcFR.rules_for_truncated_passives  import create_matcher_truncated
 
+
+
 class PassivePyAnalyzer:
     
         """
@@ -51,13 +53,36 @@ class PassivePyAnalyzer:
             elif full_passive:matches = self.matcher_f(doc)
             else: matches = self.matcher(doc)
 
+            samples = []
             if matches:
                 for id_, s,e in matches:
                     match_ = doc[s:e] 
                     print(match_)
                     print(colored('rule: ', 'blue'), self.nlp.vocab.strings[id_])
+                    samples.append((s,e,self.nlp.vocab.strings[id_],match_))
             else: print('No match.')
 
+            return samples
+
+        def prepare_visualisation(self,sentence,truncated_passive=False, full_passive=False):
+            doc = self.nlp(sentence)
+            if truncated_passive: matches = self.matcher_t(doc)
+            elif full_passive:matches = self.matcher_f(doc)
+            else: matches = self.matcher(doc)
+
+
+            if matches:
+                spans_list = []
+                for id_, s,e in matches:
+                    span = doc[s:e]
+                    span.label_ = self.nlp.vocab.strings[id_]
+                    spans_list.append(span)
+                doc.spans["passive"] = spans_list
+                return matches, doc
+
+            else : 
+                return matches, doc    
+       
 
         def parse_sentence(self, sentence):
             """
