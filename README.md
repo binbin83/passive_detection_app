@@ -66,7 +66,7 @@ Notre système de régle possède des limitations:
 - La distinction entre le passé composé et la voix passive tronqués n'est pas toujours bien faites:
 > "Je suis allé au cinéma", renvoie un passif
 - La différence entre les adjectifs  certains participes passés passif n'est pas toujours évidente:
-> ex
+> "La porte est ouverte", "Elle est maquillée"
 
 ## 5. To do
 Afin de continuer ce projet, il faudrait : 
