@@ -22,7 +22,8 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
-        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : verbs_list }},
+        {"TAG":"ADV","OP":"*"},
+        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}, "LEMMA":{"NOT_IN" : verbs_list }},
         {"LOWER":"par"}
     ]
     # exemple : J'ai été attaqué par des loups !
@@ -33,7 +34,8 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
-        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : verbs_list }}
+        {"TAG":"ADV","OP":"*"},
+        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}, "LEMMA":{"NOT_IN" : verbs_list }}
     ]
 
     """
@@ -45,7 +47,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"DEP": {"IN": ["attr", 'nsubjpass', 'appos']}},
         {"TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "DEP": "advmod", "OP" : "*"},
         {"DEP": "PUNCT", "OP" : "*"},
-        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "DEP": "acl","LEMMA": {"NOT_IN" : verbs_list}}
+        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}, "DEP": "acl","LEMMA": {"NOT_IN" : verbs_list}}
     ]
 
     """
@@ -63,7 +65,8 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"POS":"VERB", "DEP":"ROOT", "LEMMA":{"NOT_IN" : verbs_list}},
         {"DEP":"cc"},
-        {"DEP":"advmod", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "OP": "*", "LEMMA": {"NOT_IN":["pre"]}},
+        {"TAG":"ADV","OP":"*"},
+        {"DEP":"advmod", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}, "OP": "*", "LEMMA": {"NOT_IN":["pre"]}},
         {"DEP": "conj", "LEMMA":{"NOT_IN" : verbs_list}},
         {"DEP":"pobj", "OP":"!"}
     ]
@@ -76,7 +79,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
 
 
     passive_rule_4 = [
-        {"DEP":{"IN":["advcl","ROOT"]}, "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}},
+        {"DEP":{"IN":["advcl","ROOT"]}, "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}},
         {"DEP": "case", "TAG":"ADP"},
         {"OP":"*"},
         {"DEP": "obl:agent"},
@@ -127,7 +130,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     ]
 
     passive_rule_8 = [
-        {"TAG":"ADJ", "TEXT" : {"REGEX": r"\b(\w*(ible|able))\b"}}, # adjectif se finnissant par ible ou able
+        {"TAG":"ADJ", "TEXT" : {"REGEX": r"\b(\w*(ible|able|uble))\b"}}, # adjectif se finnissant par ible ou able
     ]
     
     """

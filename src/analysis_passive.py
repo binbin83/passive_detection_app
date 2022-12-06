@@ -15,17 +15,11 @@ def load_passive_features(data:pd.DataFrame, analyzer:PassivePyAnalyzer):
     data['text'] = data['text'].apply(lambda x : x.replace("  "," "))
     #compute all passive form in the corpus (might take a while)
     df = analyzer.match_corpus_level(data, 'text', n_process = -1,
-            batch_size = 50, add_other_columns=True,
-             truncated_passive=True, full_passive=True)
+            batch_size = 50, add_other_columns=True)
     df['text']  =  df['document']
     
     cols_passive  = ['count_sents', 'all_passives', 'passive_count',
-       'passive_sents_count', 'passive_percentages', 'binary',
-       'full_passive_matches', 'full_passive_count',
-       'full_passive_sents_count', 'full_passive_percentages',
-       'binary_full_passive', 'truncated_passive_matches',
-       'truncated_passive_count', 'truncated_passive_sents_count',
-       'truncated_passive_percentages', 'binary_truncated_passive']
+       'passive_sents_count', 'passive_percentages', 'binary']
 
     return df, cols_passive
 
