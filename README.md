@@ -18,7 +18,7 @@ Cette application permet de détecter la voix passive dans un texte en Français
 
 Le code source s'inspire en grande partie de ce projet : <a href = "https://github.com/mitramir55/PassivePy"> PassivePy</a>
 
-L'application public streamlit associée est disponible en ligne:   <a href = "https://passive-fr.streamlit.app/"> lien streamlit</a> 
+L'application publique streamlit associée est disponible en ligne:   <a href = "https://passive-fr.streamlit.app/"> lien streamlit</a> 
 
 
 Auteur: <a href="https://www.linkedin.com/in/robin-quillivic/">Robin Quillivic</a>, Doctorant  (1A)  EPHE - Institut des Systèmes Complexes
