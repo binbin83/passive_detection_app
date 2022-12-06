@@ -34,31 +34,54 @@ def load_analyzer():
 
 if __name__ =="__main__":
     st.set_page_config(
-        page_title="Détection de la voix passive dans un texte Français", page_icon="📘"
+        page_title="Passive-fr", page_icon="📘"
     )
 
-    
-    st.title("Détection de la voix passive dans un texte en  Français")
 
-    st.markdown("### Quelques prérequis: ")
+     #### SIDEBAR
+    
+
+    st.sidebar.markdown('''
+        # Passive-fr
+        Détection de la voix passive dans un texte en  Français
+        ### Menu
+        - [Prérequis](#section-1)
+        - [Détection Automatique](#section-2)
+        - [A propos](#section-3)
+        ''', unsafe_allow_html=True)
+
+    #st.sidebar.markdown('''
+    # Sections #### ℹ️ - A
+    #- [Section 1](#section-1)
+    #- [Section 2](#section-2)
+    #''', unsafe_allow_html=True)  
+   
+    #### PRE-REQUIS
+    st.header('Prérequis')
     st.markdown("La voix passive en Français peut prendre différentes formes :")
-    st.markdown("- La voix passive canonique: être + Particpe Passé + par; **exemple**: J'ai été frappé par un homme.")
-    st.markdown("- La voix passive tronqué: être + Particpe Passé; **exemple**: J'ai été frappé. ")
+    st.markdown("- La voix passive canonique: être + Particpe Passé d'un verbe transitif+ par;**exemple**: J'ai été frappé par un homme.")
+    st.markdown("- La voix passive tronqué: être + Particpe Passé d'un verbe transitif; **exemple**: J'ai été frappé. ")
     st.markdown("- La voix passive en sequence: être + Particpe Passé + conjonction de coordination + PP; **exemple**: J'ai été frappé et emmené. ")
     st.markdown("- La voix passive verbal: verbe auant un sens passif par nature; **exemple**: J'ai subi un interrogatoire. ")
-    st.markdown("- La voix passive factice : faire + Particpe Passé; **exemple**: On s'est fait frappé. ")
-    st.markdown("- Les adjectif passifs : -ible/-able; **exemple**: visible (il y a des exceptions). ")
+    st.markdown("- La voix passive factice : se + faire + Particpe Passé; **exemple**: On s'est fait frappé. ")
+    st.markdown("- Les adjectifs passifs : -ible/-able; **exemple**: visible (il y a des exceptions). ")
+    st.markdown("Plus d'information sur la voix passive en Français : https://hal.archives-ouvertes.fr/halshs-01465258/ ")
 
+    
+
+    
+     
+    #### ANALYZER
+    st.header('Détection Automatique')
     analyzer = load_analyzer()
 
-    st.header("")
-    st.markdown("### Détection automatique:")
+   
     
 
 
     with st.form(key='text_entry'):
 
-        text = st.text_input(label='Entrer une phrase:', max_chars=500)
+        text = st.text_input(label='Entrer une phrase:', max_chars=800)
         print(text)
         submit_button = st.form_submit_button(label='🏷️ Go !')
 
@@ -87,22 +110,21 @@ if __name__ =="__main__":
             parsing = analyzer.parse_sentence(text)
             st.table(parsing)
 
-    
-
-
-    st.header("")
-   
-    with st.expander("ℹ️ - A propos de cette application", expanded=True):
-
-
-        st.write(
+    st.header('A propos')
+    st.write(
             """     
             - Cette page a été créée dans le cadre d'une collaboration entre chercheurs issues de différentes disciplines.
             - Elle a pour but de détecter la voix passive dans un texte en Français.
-            - Elle repose principalement sur le modèle "fr_core_news_lg" de la bibliothèque Spacy
-            - Plus d'information sur la voix passive en Français : https://hal.archives-ouvertes.fr/halshs-01465258/ 
-            - Elle est inspirée de ce répertoire github: https://github.com/mitramir55/PassivePy 
-            - Développé par  Robin Quillivic dans le cadre de son doctorat à l'EPHE
+            - Elle repose principalement sur le modèle "fr_core_news_lg" de la bibliothèque Spacy: https://spacy.io/models/fr .
+            - Elle est inspirée de ce répertoire github: https://github.com/mitramir55/PassivePy .
+            - Développé par  Robin Quillivic dans le cadre de son doctorat à l'EPHE (1A).
+            - Le code course est disponible ici:  https://github.com/binbin83/passive_detection_app
             """
             )
+
+    
+
+
+    
+    
     
