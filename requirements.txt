@@ -3,4 +3,4 @@ spacy==3.4.3
 https://github.com/explosion/spacy-models/releases/download/fr_core_news_lg-3.4.0/fr_core_news_lg-3.4.0-py3-none-any.whl
 streamlit==1.15.2
 termcolor
-spacy-streamlit
+spacy-streamlit==1.0.4
