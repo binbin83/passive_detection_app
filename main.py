@@ -5,13 +5,13 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-from spacy_streamlit import visualize_spans
+from spacy_streamlit import visualize_spans, visualize_parser
 
 
 
 import re
 
-from src.PassivePySrcFR.PassivePy import PassivePyAnalyzer
+from src.PassivePy import PassivePyAnalyzer
 from src.analysis_passive import load_from_text
 
 
@@ -27,7 +27,7 @@ color_dict = {
     "passif_canonique":"#29e61a"  
 }
 
-
+st.cache()
 def load_analyzer():
     analyzer= PassivePyAnalyzer(spacy_model= "fr_core_news_lg")
     return analyzer
@@ -106,6 +106,8 @@ if __name__ =="__main__":
             st.table(results)
             
             st.markdown("### Concernant le parsing du texte : ")
+            with st.expander("Dependency parser") :
+                visualize_parser(doc )
             st.header("")
             parsing = analyzer.parse_sentence(text)
             st.table(parsing)
