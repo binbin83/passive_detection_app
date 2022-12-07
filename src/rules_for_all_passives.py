@@ -81,7 +81,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
 
 
     passive_rule_4 = [
-        {"DEP":{"IN":["advcl","ROOT"]}, "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}},
+        {"DEP":{"IN":["advcl","ROOT"]}, "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]},"LEMMA":{"NOT_IN" : intransitif_verbs_list}},
         {"DEP": "case", "TAG":"ADP"},
         {"OP":"*"},
         {"DEP": "obl:agent"},
