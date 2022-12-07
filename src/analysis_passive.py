@@ -6,7 +6,7 @@ created_at : 2022, 15th Nov
 import numpy as np
 import pandas as pd
 
-from src.PassivePySrcFR.PassivePy import PassivePyAnalyzer
+from src.PassivePy import PassivePyAnalyzer
 
 
 
