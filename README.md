@@ -85,7 +85,7 @@ La notion de voix passive est complèxe et soulève de nombreux débat au sein d
 
 ## 6. To do
 Afin de continuer ce projet, il faudrait : 
-- [x] Mettre à jour la liste des verbe intransitif en Français
-- [ ] Ajouter la vesion anglaise
-- [ ] Présenter des performance à partir d'un corpus de référence
+- [x] Mettre à jour la liste des verbes intransitifs en Français
+- [ ] Ajouter la version anglaise
+- [ ] Présenter des performances à partir d'un corpus de référence
 - [ ] Comparer ces performances à un modèle de type SequenceClassification
