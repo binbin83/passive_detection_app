@@ -11,7 +11,8 @@
 - [2. Fonctionnement de l'application](#2-fonctionnement-de-lapplication)
 - [3. Instalation](#3-instalation)
 - [4. Limitations](#4-limitations)
-- [5. To do](#5-to-do)
+- [5. Ressources sur le passif en Français](#5-ressources-sur-le-passif-en-français)
+- [6. To do](#5-to-do)
 
 ## 0. A propos
 Cette application permet de détecter la voix passive dans un texte en Français. 
@@ -68,9 +69,23 @@ Notre système de régle possède des limitations:
 - La différence entre les adjectifs  certains participes passés passif n'est pas toujours évidente:
 > "La porte est ouverte", "Elle est maquillée"
 
-## 5. To do
+## 5. Ressources sur le passif en Français
+
+La notion de voix passive est complèxe et soulève de nombreux débat au sein de la communauté des linguistes. Nous nous sommes inspiré des ressources suivantes pour développer ce travail :
+
+- La passif à l'oral:  https://hal.archives-ouvertes.fr/halshs-01465258/ 
+- Les adjectifs en -able, -ible et -uble: https://www.persee.fr/doc/lfr_0023-8368_1990_num_87_1_6325
+- La différences entre adjectifs et passifs: http://kops.uni-konstanz.de/handle/123456789/17583
+
+
+
+
+
+
+
+## 6. To do
 Afin de continuer ce projet, il faudrait : 
-- Mettre à jour la liste des verbe transitif en Français
-- Ajouter la vesion anglaise
-- Présenter des performance à partir d'un corpus de référence
-- Comparer ces performances à un modèle de type SequenceClassification
+- [x] Mettre à jour la liste des verbe intransitif en Français
+- [ ] Ajouter la vesion anglaise
+- [ ] Présenter des performance à partir d'un corpus de référence
+- [ ] Comparer ces performances à un modèle de type SequenceClassification
