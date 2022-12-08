@@ -12,7 +12,8 @@
 - [3. Instalation](#3-instalation)
 - [4. Limitations](#4-limitations)
 - [5. Ressources sur le passif en Français](#5-ressources-sur-le-passif-en-français)
-- [6. To do](#5-to-do)
+- [6. Evaluation](#6-evaluation)
+- [7. To do](#5-to-do)
 
 ## 0. A propos
 Cette application permet de détecter la voix passive dans un texte en Français. 
@@ -57,7 +58,8 @@ Afin de faire fonctionner l'application en locale et contourner la limite de 800
 - Activer l'environnement (source /path/to/env/bin/activate)
 - Cloner le répertoire (git clone https://github.com/binbin83/passive_detection_app.git)
 - Installer les dépendances (pip install -r requirements.txt)
-- Vous pouvez désormais utiliser le Notebook *notebook/tuto-exemple.ipynb* ou créer votre propose script.
+- Vous pouvez désormais utiliser le Notebook *notebook/tuto-exemple.ipynb* ou créer votre propre script.
+- Remarque: Si vous souhaitez industrialiser ce code, il faudra penser à optimiser le code. Par exemple réduie la (longue) liste de verbe intransitif qui est testé plusieurs fois par appel.
 
 
 ## 4. Limitations
@@ -78,12 +80,10 @@ La notion de voix passive est complèxe et soulève de nombreux débat au sein d
 - La différences entre adjectifs et passifs: http://kops.uni-konstanz.de/handle/123456789/17583
 
 
+## 6. Evaluation
 
 
-
-
-
-## 6. To do
+## 7. To do
 Afin de continuer ce projet, il faudrait : 
 - [x] Mettre à jour la liste des verbes intransitifs en Français
 - [ ] Ajouter la version anglaise
