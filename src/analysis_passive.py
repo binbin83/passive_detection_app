@@ -1,6 +1,7 @@
 """ 
 Author: Quillivic Robin
 created_at : 2022, 15th Nov
+Description: Quelques fonctions suppoort pour l'extraction de la voie passive
 """
 
 import numpy as np
@@ -11,6 +12,16 @@ from src.PassivePy import PassivePyAnalyzer
 
 
 def load_passive_features(data:pd.DataFrame, analyzer:PassivePyAnalyzer):
+    """_summary_
+
+    Args:
+        data (pd.DataFrame): Données d'entrer avec une colonne texte
+        analyzer (PassivePyAnalyzer): passive extrateur
+
+    Returns:
+        df (pd.DataFrame):dataframes containing the passive information
+        cols_passive (list): liste des colonnes
+    """
     # verify there are not double spacing that makes spacy going mad
     data['text'] = data['text'].apply(lambda x : x.replace("  "," "))
     #compute all passive form in the corpus (might take a while)
@@ -32,12 +43,14 @@ def load_from_text(text:str,analyzer:PassivePyAnalyzer) -> pd.DataFrame :
         analyzer (PassivePyAnalyzer): _description_
 
     Returns:
-        pd.DataFrame: _description_
+        result (pd.DataFrame): résultats d'analyses
     """
 
     result = analyzer.match_text(text)
 
     return result.T
+
+
 
 ex_passive = ["elle a été déterminée et formée ! ",
 "accusé par la police, il fut condamné a 5 ans de prison ferme"

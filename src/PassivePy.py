@@ -1,3 +1,9 @@
+""" 
+Copy of the file: https://github.com/mitramir55/PassivePy/blob/main/PassivePyCode/PassivePySrc/rules_for_all_passives.py
+Supression des options concernant le passif tronqué  et passif complet
+Ajout d'une fonction pour visualiser dans Displacy
+"""
+
 import pandas as pd
 import numpy as np
 import spacy
