@@ -75,7 +75,15 @@ class PassivePyAnalyzer:
                     span = doc[s:e]
                     span.label_ = self.nlp.vocab.strings[id_]
                     spans_list.append(span)
-                doc.spans["passive"] = spans_list
+                
+                try :
+                    doc.spans["passive"] = spans_list
+                    doc._.trf_data = None
+                except : 
+                    doc.spans["passive"] = spans_list
+                
+            
+
                 return matches, doc
 
             else : 

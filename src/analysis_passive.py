@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from src.PassivePy import PassivePyAnalyzer
+from thinc.api import set_gpu_allocator, require_gpu
 
 def load_model_from_name(model_name:str):
     """ 
@@ -15,6 +16,9 @@ def load_model_from_name(model_name:str):
     if "spacy" in model_name :
         import spacy
         name = '_'.join(model_name.split('_')[1:])
+        if "trf" in name : 
+            set_gpu_allocator("pytorch")
+            require_gpu()
         nlp = spacy.load(name)
     elif "stanza" in model_name : 
         import spacy_stanza

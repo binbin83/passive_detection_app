@@ -10,11 +10,11 @@ from spacy.matcher import Matcher
 import os
 
 try :
-    intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('./data/intransif_verbs.txt').readlines()[1:]]
-    exception_adj = [elt.replace("\n","").lower().strip() for elt in  open('./data/exception_adj_ible.txt').readlines()]
-    passive_verb_etre =  [elt.replace("\n","").lower().strip() for elt in  open('./data/transitif_etre_verbs.txt').readlines()]
+    intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('./data/intransif_verbs.txt',encoding="utf8").readlines()[1:]]
+    exception_adj = [elt.replace("\n","").lower().strip() for elt in  open('./data/exception_adj_ible.txt',encoding="utf8").readlines()]
+    passive_verb_etre =  [elt.replace("\n","").lower().strip() for elt in  open('./data/transitif_etre_verbs.txt',encoding="utf8").readlines()]
 except :
-    intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('../data/intransif_verbs.txt').readlines()[1:]]
+    intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('../data/intransif_verbs.txt',encoding="utf8").readlines()[1:]]
     exception_adj = [elt.replace("\n","").lower().strip() for elt in  open('../data/exception_adj_ible.txt').readlines()]
     passive_verb_etre =  [elt.replace("\n","").lower().strip() for elt in  open('../data/transitif_etre_verbs.txt').readlines()]
 
@@ -30,7 +30,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
 
     # list of verbs that their adjective form 
     # is sometimes mistaken as a verb
-    passiv_verbs =  ["user","subir","coincer"]
+    passiv_verbs =  ["user","subir","coincer","hospitaliser","blesser"]
     #passive_verb_etre = []
 
     #--------------------------rules--------------------#
@@ -40,11 +40,14 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     passive_rule_0 = [
         {"POS":"AUX", "DEP": "aux", "OP":"*"},
         {"DEP":{"IN" : ["iobj","expl:comp"]}, "TAG":"PRON", "OP": "!"}, # absence de pronom réfléxif 
-        {"POS":"AUX", "DEP": "aux:pass", "OP":"+"},
+        {"POS":{"IN" : ["AUX","VERB"]}, "DEP": "aux:pass", "OP":"+"},
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
-        {"TAG":"ADV","OP":"*"},
+         {"POS":{"IN" : ["ADP","DET"]},"OP":"*"}, #un
+        {"TAG":{"IN" : ["ADJ","ADV"]},"OP":"*"}, #petit
+        {"LEMMA": {"IN" : [",","..."]},"OP":"*"},
+        {"TAG":"ADV","OP":"*"}, #peu
         {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}, "LEMMA":{"NOT_IN" : intransitif_verbs_list }},
         {"LOWER":"par"}
     ]
@@ -52,14 +55,17 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     # exemple : J'ai été attaqué !
     passive_rule_1 = [
         {"POS":"AUX", "DEP": "aux", "OP":"*"},
-        {"DEP":{"IN" : ["iobj","expl:comp"]}, "TAG":"PRON", "OP": "!"}, # absence de pronom réfléxif 
-        {"POS":"AUX", "DEP": "aux:pass", "OP":"+"},
+        {"DEP":{"IN" : ["iobj","expl:comp"]}, "TAG":"PRON","MORPH": {"IS_SUPERSET": ["Reflex=Yes"]}, "OP": "!"}, # absence de pronom réfléxif 
+        {"POS":{"IN" : ["AUX","VERB"]}, "DEP": "aux:pass", "OP":"+"},
+        {"POS":{"IN" : ["ADP","DET"]},"OP":"*"},
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
-        {"TAG":{"IN" : ["ADP","DET"]},"OP":"*"},
-        {"TAG":"ADV","OP":"*"},
-        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : intransitif_verbs_list }}
+        {"POS":{"IN" : ["ADP","DET"]},"OP":"*"}, #un
+        {"TAG":{"IN" : ["ADJ","ADV"]},"OP":"*"}, #petit
+        {"LEMMA": {"IN" : [",","..."]},"OP":"*"},
+        {"TAG":"ADV","OP":"*"}, #peu
+        {"POS":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]},"LEMMA":{"NOT_IN" : intransitif_verbs_list }}
     ]
 
     
@@ -102,7 +108,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
         {"LEMMA": {"IN": ['être']}, "OP":"+"},
         {"TAG":{"IN" : ["ADP","DET"]},"OP":"*"},
         {"TAG":"ADV","OP":"*"},
-        {"LEMMA": {"IN": passiv_verbs+passive_verb_etre},}#"MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}},
+        {"LEMMA": {"IN": passiv_verbs+passive_verb_etre},"MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}},
     ]
 
     passive_rule_6_2 =  [
@@ -123,18 +129,23 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     passive_rule_7 = [
         {"TAG":"PRON", "MORPH" : {"IS_SUPERSET": ["Reflex=Yes"]},"OP":"+"}, #un pronom reflexif, facultatif
         {"TAG":"AUX","DEP" : {"IN" : ["aux:tense","aux:pass","cop"]},"OP":"*"}, #un auxiliaire de temps
-        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir","retrouver","sentir", 'laisser']}}, # verb/aux faire ou voir (laisser possible)
         {"TAG":"ADV","OP":"*"},
-        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["VerbForm=Inf"]}}, # un verbe à l'infinitif
+        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir","retrouver","sentir", 'laisser', "laisse"]}}, # verb/aux faire ou voir (laisser possible)
+        {"TAG":{"IN" : ["ADJ","ADV"]},"OP":"*"}, #petit
+        {"LEMMA": {"IN" : [",","..."]},"OP":"*"},
+        {"TAG":"ADV","OP":"*"}, #peu
+        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["VerbForm=Inf"]}, "LEMMA":{"NOT_IN" : ['exploser',"péter"] + intransitif_verbs_list }}, # un verbe à l'infinitif
         {"LOWER":"par","OP":"*"} #la proposition "par" qui est facultative
     ]
 
     passive_rule_7_1 = [
-        {"TAG":"PRON", "MORPH" : {"IS_SUPERSET": ["Reflex=Yes"]},"OP":"+"}, #un pronom reflexif, facultatif
+        {"TAG":"PRON", "MORPH" : {"IS_SUPERSET": ["Reflex=Yes"]},"OP":"+"}, #un pronom reflexif,
         {"TAG":"AUX","DEP" : {"IN" : ["aux:tense","aux:pass","cop"]},"OP":"*"}, #un auxiliaire de temps
-        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir","retrouver","sentir", 'laisser']}}, # verb/aux faire ou voir (laisser possible)
-        {"TAG":"ADV","OP":"*"},
-        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}}, # un verbe au participe passer (Gramaticalement faux mais très pésent dans note corpus)
+        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir","retrouver","sentir", 'laisser', "rester"]}}, # verb/aux faire ou voir (laisser possible)
+        {"TAG":{"IN" : ["ADJ","ADV"]},"OP":"*"}, #petit
+        {"LEMMA": {"IN" : [",","..."]},"OP":"*"},
+        {"TAG":"ADV","OP":"*"}, #peu
+        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}}, # un verbe au participe passé (Gramaticalement faux mais très pésent dans note corpus)
         {"LOWER":"par","OP":"*"} #la proposition "par" qui est facultative
     ]
 
@@ -142,6 +153,13 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     # Exemple : Il s'est fait cambrioler sa voiture.
     passive_rule_8 = [
         {"TAG":"ADJ", "TEXT" : {"REGEX": r"\b(\w*(ible(s?)|able(s?)|uble(s?)))\b"},"LEMMA":{"NOT_IN" : exception_adj}}, # adjectif se finnissant par ible ou able
+    ]
+
+     # Passif avec  simplement un Participe passé et la préposition par
+    # Exemple : Il s'est fait cambrioler sa voiture.
+    passive_rule_9 = [
+       {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]},"LEMMA":{"NOT_IN" : intransitif_verbs_list }},
+       {"LOWER":"par","OP":"+"}
     ]
     
 
@@ -153,6 +171,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     matcher.add("passif_verbale", [passive_rule_6, passive_rule_6_1,passive_rule_6_2], greedy='LONGEST')
     matcher.add("passif_factif", [passive_rule_7, passive_rule_7_1], greedy='LONGEST')
     matcher.add("passif_adjectif", [passive_rule_8], greedy='LONGEST')
+    matcher.add("passif_pp", [passive_rule_9], greedy='LONGEST')
     # print('Matcher is built.')
 
     return nlp, matcher

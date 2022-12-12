@@ -72,12 +72,14 @@ def check_if_found(s,e,test_label,seuil = 30) :
         t_e = t_label[1]
         if abs( t_s-s)<seuil:
             return 1
+        elif abs( t_e-e)<seuil:
+            return 1
         else :
             continue
     
     return 0
 
-def eval_one_doc(x, analyzer, seuil = 35):
+def eval_one_doc(x, analyzer, seuil = 40):
     """Evaluate on document by returning, the number of True Positive
 
     Args:
@@ -102,11 +104,14 @@ def eval_one_doc(x, analyzer, seuil = 35):
     all_start = df_test['start'].tolist()
     df_test['min_ecart'] = df_test['start'].apply(lambda x : find_ecart_minimum(x,all_start))
     # computing the number of passife we found in all document
-    n_test = len(df_test[df_test['min_ecart']>15])
+    select = df_test[df_test['min_ecart']>13]
+    n_test = len(select)
 
     # find the False positive
-    df_test['FP_found'] = df_test.apply(lambda x: check_if_found(x.start,x.end,true_label,seuil),axis=1)
-    FP_errors = df_test[df_test['FP_found']==0]
+    select['FP_found'] = select.apply(lambda x: check_if_found(x.start,x.end,true_label,seuil+20),axis=1)
+    
+    FP_errors = select[select['FP_found']==0]
+    VP_test = len(select[select['FP_found']==1])
     
     # Counting the matching passive found (labelisation is not precise) 
     df_eval = pd.DataFrame(true_label, columns = ['start',"end","label"])
@@ -118,7 +123,7 @@ def eval_one_doc(x, analyzer, seuil = 35):
     FN_errors = df_eval[df_eval['is_found']==0]
     n_true = len(df_eval['is_found'])
 
-    return n_VP, n_true, n_test, FN_errors, FP_errors
+    return n_VP, n_true, n_test, VP_test, FN_errors, FP_errors
 
 
 

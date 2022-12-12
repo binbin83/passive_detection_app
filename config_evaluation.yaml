@@ -1,0 +1,3 @@
+model_name : "spacy_fr_dep_news_trf" #"spacy_fr_core_news_lg" #"spacy_fr_dep_news_trf" 
+annotation_file_path : "/home/robin/Data/Etude_1000/annotation/20221210_voix_passive.jsonl"
+overlap_seuil : 30 # in number of caratere
