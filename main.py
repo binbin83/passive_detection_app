@@ -15,6 +15,8 @@ from src.PassivePy import PassivePyAnalyzer
 from src.analysis_passive import load_from_text
 
 
+
+
 color_dict = {
     "passif_tronqué": "#8ef",
     "passive_rule_2" : "#faa",
