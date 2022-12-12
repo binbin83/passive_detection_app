@@ -7,19 +7,31 @@ Description: adaptation du module PassivePyde l'anglais au Français
 
 import spacy
 from spacy.matcher import Matcher
+import os
 
-intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('./data/intransif_verbs.txt').readlines()[1:]]
+try :
+    intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('./data/intransif_verbs.txt').readlines()[1:]]
+    exception_adj = [elt.replace("\n","").lower().strip() for elt in  open('./data/exception_adj_ible.txt').readlines()]
+    passive_verb_etre =  [elt.replace("\n","").lower().strip() for elt in  open('./data/transitif_etre_verbs.txt').readlines()]
+except :
+    intransitif_verbs_list = [elt.replace("\n","").lower().strip() for elt in  open('../data/intransif_verbs.txt').readlines()[1:]]
+    exception_adj = [elt.replace("\n","").lower().strip() for elt in  open('../data/exception_adj_ible.txt').readlines()]
+    passive_verb_etre =  [elt.replace("\n","").lower().strip() for elt in  open('../data/transitif_etre_verbs.txt').readlines()]
 
 def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language = None):
 
     """creates a matcher on the following vocabulary"""
     if not nlp:
-        nlp = spacy.load(spacy_model, disable=["ner"])
+        if "trf" in spacy_model: 
+            nlp  = spacy.load(spacy_model)
+        else : 
+            nlp = spacy.load(spacy_model, disable=["ner"])
     matcher = Matcher(nlp.vocab)
 
     # list of verbs that their adjective form 
     # is sometimes mistaken as a verb
-    passiv_verbs =  ["user",'utiliser',"subir"]
+    passiv_verbs =  ["user","subir","coincer"]
+    #passive_verb_etre = []
 
     #--------------------------rules--------------------#
 
@@ -27,6 +39,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     # exemple : J'ai été attaqué par des loups !
     passive_rule_0 = [
         {"POS":"AUX", "DEP": "aux", "OP":"*"},
+        {"DEP":{"IN" : ["iobj","expl:comp"]}, "TAG":"PRON", "OP": "!"}, # absence de pronom réfléxif 
         {"POS":"AUX", "DEP": "aux:pass", "OP":"+"},
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
@@ -39,12 +52,14 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     # exemple : J'ai été attaqué !
     passive_rule_1 = [
         {"POS":"AUX", "DEP": "aux", "OP":"*"},
+        {"DEP":{"IN" : ["iobj","expl:comp"]}, "TAG":"PRON", "OP": "!"}, # absence de pronom réfléxif 
         {"POS":"AUX", "DEP": "aux:pass", "OP":"+"},
         {"DEP":"neg", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
         {"DEP":"HYPH", "OP":"*"},
         {"DEP":"advmod", "TAG":"ADV","MORPH": {"IS_SUPERSET": ["Degree=Pos"]}, "OP":"*"},
+        {"TAG":{"IN" : ["ADP","DET"]},"OP":"*"},
         {"TAG":"ADV","OP":"*"},
-        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]}, "LEMMA":{"NOT_IN" : intransitif_verbs_list }}
+        {"POS":"VERB", "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}, "LEMMA":{"NOT_IN" : intransitif_verbs_list }}
     ]
 
     
@@ -70,8 +85,7 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     passive_rule_4 = [
         {"DEP":{"IN":["advcl","ROOT"]}, "TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part","Voice=Pass"]},"LEMMA":{"NOT_IN" : intransitif_verbs_list}},
         {"DEP": "case", "TAG":"ADP"},
-        {"OP":"*"},
-        {"DEP": "obl:agent"},
+        {"DEP": "obl:agent", "OP":"*"},
     ]
 
     
@@ -81,6 +95,18 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     passive_rule_6 = [
         {"LEMMA": {"IN": passiv_verbs}},
         {"LOWER":"par"}
+    ]
+
+
+    passive_rule_6_1 =  [
+        {"LEMMA": {"IN": ['être']}, "OP":"+"},
+        {"TAG":{"IN" : ["ADP","DET"]},"OP":"*"},
+        {"TAG":"ADV","OP":"*"},
+        {"LEMMA": {"IN": passiv_verbs+passive_verb_etre},}#"MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}},
+    ]
+
+    passive_rule_6_2 =  [
+        {"LEMMA": {"IN": passiv_verbs}},
     ]
 
     # Passif factif avec se faire
@@ -96,16 +122,26 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     """
     passive_rule_7 = [
         {"TAG":"PRON", "MORPH" : {"IS_SUPERSET": ["Reflex=Yes"]},"OP":"+"}, #un pronom reflexif, facultatif
-        {"TAG":"AUX","DEP" : "aux:tense","OP":"*"}, #un auxiliaire de temps
-        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir"]}}, # verb/aux faire ou voir
+        {"TAG":"AUX","DEP" : {"IN" : ["aux:tense","aux:pass","cop"]},"OP":"*"}, #un auxiliaire de temps
+        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir","retrouver","sentir", 'laisser']}}, # verb/aux faire ou voir (laisser possible)
+        {"TAG":"ADV","OP":"*"},
         {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["VerbForm=Inf"]}}, # un verbe à l'infinitif
+        {"LOWER":"par","OP":"*"} #la proposition "par" qui est facultative
+    ]
+
+    passive_rule_7_1 = [
+        {"TAG":"PRON", "MORPH" : {"IS_SUPERSET": ["Reflex=Yes"]},"OP":"+"}, #un pronom reflexif, facultatif
+        {"TAG":"AUX","DEP" : {"IN" : ["aux:tense","aux:pass","cop"]},"OP":"*"}, #un auxiliaire de temps
+        {"TAG": {"IN":["VERB","AUX"]},"LEMMA":{"IN":["faire","voir","retrouver","sentir", 'laisser']}}, # verb/aux faire ou voir (laisser possible)
+        {"TAG":"ADV","OP":"*"},
+        {"TAG":"VERB","MORPH": {"IS_SUPERSET": ["Tense=Past","VerbForm=Part"]}}, # un verbe au participe passer (Gramaticalement faux mais très pésent dans note corpus)
         {"LOWER":"par","OP":"*"} #la proposition "par" qui est facultative
     ]
 
     # Passif fAvec des adjectif en -ible -able -uble
     # Exemple : Il s'est fait cambrioler sa voiture.
     passive_rule_8 = [
-        {"TAG":"ADJ", "TEXT" : {"REGEX": r"\b(\w*(ible|able|uble))\b"}}, # adjectif se finnissant par ible ou able
+        {"TAG":"ADJ", "TEXT" : {"REGEX": r"\b(\w*(ible(s?)|able(s?)|uble(s?)))\b"},"LEMMA":{"NOT_IN" : exception_adj}}, # adjectif se finnissant par ible ou able
     ]
     
 
@@ -113,9 +149,9 @@ def create_matcher(spacy_model = "fr_core_news_lg", nlp:spacy.language.Language 
     matcher.add("passif_canonique", [passive_rule_0], greedy='LONGEST')
     matcher.add("passif_tronqué", [passive_rule_1], greedy='LONGEST')
     matcher.add("passif_sequencé", [passive_rule_3], greedy='LONGEST')
-    matcher.add("passif_impersonel", [passive_rule_4], greedy='LONGEST')
-    matcher.add("passif_verbale", [passive_rule_6], greedy='LONGEST')
-    matcher.add("passif_factif", [passive_rule_7], greedy='LONGEST')
+    matcher.add("passif_impersonel", [passive_rule_4], greedy='FIRST')
+    matcher.add("passif_verbale", [passive_rule_6, passive_rule_6_1,passive_rule_6_2], greedy='LONGEST')
+    matcher.add("passif_factif", [passive_rule_7, passive_rule_7_1], greedy='LONGEST')
     matcher.add("passif_adjectif", [passive_rule_8], greedy='LONGEST')
     # print('Matcher is built.')
 

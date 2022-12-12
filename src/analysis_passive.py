@@ -9,7 +9,21 @@ import pandas as pd
 
 from src.PassivePy import PassivePyAnalyzer
 
-
+def load_model_from_name(model_name:str):
+    """ 
+    """
+    if "spacy" in model_name :
+        import spacy
+        name = '_'.join(model_name.split('_')[1:])
+        nlp = spacy.load(name)
+    elif "stanza" in model_name : 
+        import spacy_stanza
+        package = model_name.split('_')[1]
+        nlp = spacy_stanza.load_pipeline("fr", package=package, disable = ["mwt"])
+    else : 
+        nlp = None
+        return "The model name you enter in not valid ! "
+    return nlp
 
 def load_passive_features(data:pd.DataFrame, analyzer:PassivePyAnalyzer):
     """_summary_
