@@ -24,8 +24,8 @@ L'application publique streamlit associée est disponible en ligne:   <a href = 
 
 
 Auteur:
-- <a href="https://www.linkedin.com/in/robin-quillivic/">Robin Quillivic</a>, Doctorant  (1A)  EPHE - Institut des Systèmes Complexes
-- L'annotation des données d'évaluations et l'analyse des erreurs a été réalisé avec <a href="http://www.ddl.cnrs.fr/Annuaires/Index.asp?Langue=en&Page=Frederique%20GAYRAUD ">Frédérique Gayraud</a>
+- <a href="https://www.linkedin.com/in/robin-quillivic/">Robin Quillivic</a>, Doctorant  (1A)  EPHE - Institut des Systèmes Complexes.
+- <a href="http://www.ddl.cnrs.fr/Annuaires/Index.asp?Langue=en&Page=Frederique%20GAYRAUD ">Frédérique Gayraud</a> a aprticipé a l'annotation des données d'évaluations et a l'analyse des erreurs.
 
 ## 1. Prérequis sur le passif en français
 La voix passive en Français peut prendre différentes formes :
