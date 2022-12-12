@@ -4,7 +4,6 @@ cibler
 immobiliser
 sonner
 élever
-faire
 juger
 punir
 apeurer
@@ -20,7 +19,6 @@ projeter
 emporter
 inculper
 blesser
-préparer
 informer
 piétiner
 suivre

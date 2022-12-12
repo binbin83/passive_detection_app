@@ -1,4 +1,16 @@
 Abcéder
+Rebeu
+Miraculer
+endormir
+Disparaître
+Accouder
+Rerentrer
+Typer
+Crever
+Installer
+Terminer
+Assoir
+Asseoir
 Daech
 Finir
 Faner
@@ -183,7 +195,6 @@ Bramer
 Brancher
 Brandiller
 Branler
-Braquer
 Brasiller
 Bredouiller
 Brésiller
@@ -452,7 +463,6 @@ Débarrasser
 Déblatérer
 Débloquer
 Déboîter
-Déborder
 Déboucher
 Débouder
 Débouler
@@ -529,7 +539,6 @@ Déparler
 Dépiler
 Déplaner
 Dépontiller
-Déposer
 Déprimer
 Dérayer
 Dérager
@@ -625,7 +634,6 @@ Encarrer
 Encenser
 Endêver
 Enfler
-Engluer
 Engober
 Engommer
 Engoncer
@@ -711,7 +719,6 @@ Flasher
 Flemmarder
 Fleurer
 Flibuster
-Flinguer
 Flipper
 Flirter
 Floconner
@@ -727,7 +734,6 @@ Folâtrer
 Folichonner
 Foncer
 Fonctionner
-Fonder
 Forcer
 Forger
 Forjeter
@@ -763,7 +769,6 @@ Fulgurer
 Fulminer
 Fureter
 Fuser
-Gâcher
 Gaffer
 Gagner
 Galéjer
@@ -850,7 +855,6 @@ Halbrener
 Halkiner
 Hancher
 Hannetonner
-Happer
 Harpailler
 Haver
 Hébraïser
@@ -875,7 +879,6 @@ Innover
 Insister
 Instrumenter
 Insulter
-Intégrer
 Intercéder
 Interférer
 Invectiver
@@ -978,7 +981,6 @@ Marivauder
 Marmotter
 Marner
 Maronner
-Marquer
 Marronner
 Marsouiner
 Mastéguer
@@ -1063,9 +1065,7 @@ Onduler
 Opiner
 Opter
 Orbiter
-Ordonner
 Osciller
-Oublier
 Ouiller
 Ouvrer
 Ovuler
@@ -1084,7 +1084,6 @@ Palanquer
 Palpiter
 Pâmer
 Panacher
-Paniquer
 Panneauter
 Panoramiquer
 Panteler
@@ -1129,9 +1128,7 @@ Pencher
 Pendiller
 Pendouiller
 Penduler
-Penser
 Pepier
-Percer
 Percher
 Perdurer
 Pérégriner
@@ -1165,7 +1162,6 @@ Piauler
 Picoler
 Picorer
 Picter
-Piétiner
 Pignocher
 Piler
 Pîler
@@ -1222,8 +1218,6 @@ Pomper
 Ponter
 Pontifier
 Poquer
-Porter
-Poser
 Positiver
 Posticher
 Postillonner
@@ -1258,7 +1252,6 @@ Proliférer
 Proner
 Prononcer
 Prophétiser
-Proposer
 Prosaïser
 Prospérer
 Prospecter
@@ -1347,8 +1340,6 @@ Reculer
 Redonner
 Redoubler
 Refluer
-Refouler
-Refuser
 Regeler
 Régater
 Régenter
@@ -1380,7 +1371,6 @@ Renifler
 Renouveler
 Rentrer
 Renvier
-Répéter
 Repairer
 Reparler
 Repasser
@@ -1389,9 +1379,6 @@ Repiquer
 Replanter
 Répliquer
 Replonger
-Reposer
-Repousser
-Représenter
 Résider
 Résonner
 Respirer
@@ -1457,6 +1444,7 @@ Rûter
 Rutiler
 Sécher
 Saisonner
+Spécialiser
 Saliver
 Salonguer
 Sangloter
@@ -1465,8 +1453,6 @@ Saturer
 Sauner
 Sauter
 Sautiller
-Sauver
-Scier
 Schématiser
 Schlinguer
 Schmecter
@@ -1485,7 +1471,6 @@ Siéger
 Siester
 Siffler
 Siffloter
-Signer
 Simplifier
 Skier
 Slalomer
@@ -1619,7 +1604,6 @@ Tracaner
 Traficoter
 Traînailler
 Traînasser
-Trancher
 Transhumer
 Transiger
 Transiter
@@ -1788,13 +1772,11 @@ Mollir
 Mugir
 Noircir
 Nordir
-Nourrir
 Pâlir
 Pâtir
 Périr
 Rabonnir
 Rabougrir
-Raccourcir
 Radoucir
 Rafantir
 Rafraîchir
@@ -1891,7 +1873,6 @@ Mésoffrir
 Messeoir
 Naître
 Obvenir
-Ouvrir
 Paître
 Pouvoir
 Paraître
