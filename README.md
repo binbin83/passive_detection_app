@@ -23,7 +23,9 @@ Le code source s'inspire en grande partie de ce projet : <a href = "https://gith
 L'application publique streamlit associée est disponible en ligne:   <a href = "https://passive-fr.streamlit.app/"> lien streamlit</a> 
 
 
-Auteur: <a href="https://www.linkedin.com/in/robin-quillivic/">Robin Quillivic</a>, Doctorant  (1A)  EPHE - Institut des Systèmes Complexes
+Auteur:
+- <a href="https://www.linkedin.com/in/robin-quillivic/">Robin Quillivic</a>, Doctorant  (1A)  EPHE - Institut des Systèmes Complexes
+- L'annotation des données d'évaluations et l'analyse des erreurs a été réalisé avec <a href="http://www.ddl.cnrs.fr/Annuaires/Index.asp?Langue=en&Page=Frederique%20GAYRAUD ">Frédérique Gayraud</a>
 
 ## 1. Prérequis sur le passif en français
 La voix passive en Français peut prendre différentes formes :
@@ -59,17 +61,19 @@ Afin de faire fonctionner l'application en locale et contourner la limite de 800
 - Cloner le répertoire (git clone https://github.com/binbin83/passive_detection_app.git)
 - Installer les dépendances (pip install -r requirements.txt)
 - Vous pouvez désormais utiliser le Notebook *notebook/tuto-exemple.ipynb* ou créer votre propre script.
-- Remarque: Si vous souhaitez industrialiser ce code, il faudra penser à optimiser le code. Par exemple réduie la (longue) liste de verbe intransitif qui est testé plusieurs fois par appel.
+- Vous pouvez également utiliser l'application en local en utilisant :  streamlit run main.py
+- Remarque: Si vous souhaitez industrialiser ce code, il faudra penser à optimiser le code. Par exemple réduire la (longue) liste de verbe intransitif qui est testé plusieurs fois par appel.
 
 
 ## 4. Limitations
 Notre système de régle possède des limitations: 
 - Lorque le participe passé et l'auxiliaure sont inversés : 
 > "Plusieurs personnes, dont Pierre Paoli, militant de Corsica libera soupçonné d’avoir été le chef du Front de libération nationale corse (FLNC)"
-- La distinction entre le passé composé et la voix passive tronqués n'est pas toujours bien faites:
-> "Je suis allé au cinéma", renvoie un passif
+- La distinction entre le passé composé et la voix passive tronqués n'est pas toujours bien faites. Nottament dans les cas ou les verbes associées peuvent être transitifs et intrnasitifs selon le contexte:
+> "J'étais crevé"
 - La différence entre les adjectifs  certains participes passés passif n'est pas toujours évidente:
 > "La porte est ouverte", "Elle est maquillée"
+- Certaines règles ont été adapté à notre corpus qui est un corpus orale. Nous vous conseillons d'anoter une petite partie de votre texte en utilisant Doccano par exemple et de vérifier si les scores sont bons (>80%).
 
 ## 5. Ressources sur le passif en Français
 
@@ -81,11 +85,30 @@ La notion de voix passive est complèxe et soulève de nombreux débat au sein d
 
 
 ## 6. Evaluation
+Afin de vérifier la pertinence, de notre moteur de régles, nous avons annoté 25 retranscriptions de témoignages, ce qui représente environ 2350 étiquettes passifs sur un corpus d'environ 350 000 mots. **Pour des raisons de confidentialité, nous ne pouvons pas paratger nos données**. Les données nécessaires à l'évaluation doivent être au format jsonl et le chemin foit être changé dans le fichier de config : *config_evaluation.yaml*.  Voici, quelques remarques sur l'annotation des documents : 
+
+- **Difficultés de codage**
+    - 1.1. il y a eu des cas d’ambiguïté entre participe passé et adjectifs, notamment avec le terme « blessé » : Nous avons pris le parti de ne le considérer comme un passif que lorsque le terme était employé avec l’auxiliaire être comme en (1), mais de ne l’ai pas codé comme passif dans les cas comme (2) ou (3). Ce choix est discutable, et l’on pourrait décider de coder toutes les occurrences de « blessé » comme des passifs.
+            (1) Mon ami a été blessée
+            (2) Il y avait partout des personnes blessées
+            (3) Les blessés attendaient dans la cour
+    
+    - 1.2. Concernant les adjectifs en -ble, même si historiquement ils avaient tous un sens passif, il nous semble qu’un certain nombre ne sont plus interprétés comme tel, aussi, avons-nous (subjectivement) exclu les adjectifs suivants :
+        Agréable, capable/incapable, sensible / hypersensible, horrible, flexible, possible/impossible, pénible, terrible, disponible, coupable, adorable, aimable, responsable, inconfortable, formidable, instable, raisonnable, exécrable, indispensable, variable
+
+- **Perfomances:** Nous obtenons les performances suivantes, le modèle basé sur transformer bien que beaucoup plus long permet d'augmenter significativement  la précision.
+
+>| Modèle | Rappel | Précision | f1 score |
+>|:------:|:------:|:---------:|:--------:|
+>| spacy large |  0.84 | 0.70  | 0.77 |
+>| spacy trf   |  0.89 | 0.85  | 0.86 |
+
 
 
 ## 7. To do
 Afin de continuer ce projet, il faudrait : 
 - [x] Mettre à jour la liste des verbes intransitifs en Français
+- [x] Présenter des performances à partir du corpus d'étude
 - [ ] Ajouter la version anglaise
 - [ ] Présenter des performances à partir d'un corpus de référence
-- [ ] Comparer ces performances à un modèle de type SequenceClassification
+- [ ] Comparer ces performances à un modèle de type SequenceClassification (spacy NER)
