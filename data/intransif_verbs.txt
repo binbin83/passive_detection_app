@@ -1,4 +1,9 @@
 Abcéder
+Daech
+Finir
+Faner
+Genre
+Acheter
 Abdiquer
 Aberrer
 Abjurer
@@ -45,7 +50,6 @@ Argotiser
 Arpéger
 Arquer
 Arrérager
-Arrêter
 Arriver
 Artiller
 Assoner
@@ -522,7 +526,6 @@ Démurger
 Dénicher
 Dénoter
 Déparler
-Dépasser
 Dépiler
 Déplaner
 Dépontiller
@@ -583,7 +586,6 @@ Dogmatiser
 Doguer
 Doigter
 Dominer
-Donner
 Doublonner
 Douiller
 Douter
@@ -607,7 +609,6 @@ Effluver
 Émaner
 Émarger
 Embarrer
-Embaucher
 Embaumer
 Embouer
 Emboucaner
@@ -905,7 +906,6 @@ Jongler
 Jouer
 Jouailler
 Jouter
-Juger
 Jubiler
 Jucher
 Judaïser
@@ -938,6 +938,7 @@ Lichetrogner
 Limer
 Lisbroquer
 Litroner
+Livrer
 Loger
 Locher
 Lofer
@@ -968,7 +969,6 @@ Marger
 Maratoner
 Marauder
 Maraver
-Marcher
 Marchander
 Margauder
 Margoter
@@ -990,8 +990,6 @@ Mazouter
 Médiser
 Méditer
 Mégoter
-Mémoriser
-Menacer
 Mendier
 Mendigoter
 Merder
@@ -1062,7 +1060,6 @@ Officier
 Oiseler
 Ondoyer
 Onduler
-Opérer
 Opiner
 Opter
 Orbiter
@@ -1072,7 +1069,6 @@ Oublier
 Ouiller
 Ouvrer
 Ovuler
-Payer
 Pécher
 Peler
 Peser
@@ -1213,7 +1209,6 @@ Plumer
 Plussoyer
 Pluviner
 Pocher
-Pointer
 Pointiller
 Poireauter
 Poiroter
@@ -1250,7 +1245,6 @@ Préexister
 Préférer
 Préjudicier
 Préluder
-Présenter
 Présider
 Presser
 Prévariquer
@@ -1409,6 +1403,7 @@ Ressusciter
 Rester
 Résulter
 Retarder
+Retourner
 Retomber
 Rétrocéder
 Rêver
@@ -1472,7 +1467,6 @@ Sauter
 Sautiller
 Sauver
 Scier
-Scandaliser
 Schématiser
 Schlinguer
 Schmecter
@@ -1564,7 +1558,6 @@ Tambouler
 Tambouriner
 Tamiser
 Tanguer
-Taper
 Tapager
 Tapiner
 Tapoter
@@ -1728,6 +1721,7 @@ Zûner
 Zwanzer
 Aboutir
 Accourcir
+Accroupir
 Agir
 Alunir
 Amerrir
@@ -1808,7 +1802,6 @@ Rajeunir
 Rancir
 Réagir
 Rebondir
-Réfléchir
 Refleurir
 Regrossir
 Rejaillir
@@ -1878,7 +1871,6 @@ Dormir
 Éclore
 Ester
 Faillir
-Faire
 Feindre
 Fondre
 Forfaire
@@ -1918,7 +1910,6 @@ Rabattre
 Racabouillir
 Rasseoir
 Rassir
-Recevoir
 Réapparaître
 Recuire
 Recomparaître
@@ -1931,9 +1922,7 @@ Reluire
 Renaître
 Rendre
 Reparaître
-Repartir
 Répondre
-Reprendre
 Resservir
 Ressortir
 Revenir
@@ -1946,9 +1935,9 @@ Servir
 Souffrir
 Sourdre
 Sourire
+Sortir
 Souscrire
 Suffire
-Suivre
 Sur-aller
 Survenir
 Survivre
