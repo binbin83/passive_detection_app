@@ -36,8 +36,7 @@ def load_analyzer():
 
 if __name__ =="__main__":
     st.set_page_config(
-        page_title="Passive-fr", page_icon="📘"
-    )
+        page_title="Passive-fr", page_icon="📘", layout="wide")
 
 
      #### SIDEBAR
