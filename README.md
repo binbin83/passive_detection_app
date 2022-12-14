@@ -25,14 +25,14 @@ L'application publique streamlit associée est disponible en ligne:   <a href = 
 
 Auteur:
 - <a href="https://www.linkedin.com/in/robin-quillivic/">Robin Quillivic</a>, Doctorant  (1A)  EPHE - Institut des Systèmes Complexes.
-- <a href="http://www.ddl.cnrs.fr/Annuaires/Index.asp?Langue=en&Page=Frederique%20GAYRAUD ">Frédérique Gayraud</a> a aprticipé a l'annotation des données d'évaluations et a l'analyse des erreurs.
+- <a href="http://www.ddl.cnrs.fr/Annuaires/Index.asp?Langue=en&Page=Frederique%20GAYRAUD ">Frédérique Gayraud</a> a participé a l'annotation des données d'évaluations et a l'analyse des erreurs.
 
 ## 1. Prérequis sur le passif en français
 La voix passive en Français peut prendre différentes formes :
-- La voix passive canonique: être + Particpe Passé d'un verbe transitif+ par;**exemple**: J'ai été frappé par un homme.
-- La voix passive tronqué: être + Particpe Passé d'un verbe transitif; **exemple**: J'ai été frappé.
-- La voix passive en sequence: être + Particpe Passé + conjonction de coordination + PP; **exemple**: J'ai été frappé et emmené.
-- La voix passive verbal: verbe auant un sens passif par nature; **exemple**: J'ai subi un interrogatoire. ")
+- La voix passive canonique: être + Participe Passé d'un verbe transitif+ par;**exemple**: J'ai été frappé par un homme.
+- La voix passive tronqué: être + Participe Passé d'un verbe transitif; **exemple**: J'ai été frappé.
+- La voix passive en sequence: être + Participe Passé + conjonction de coordination + PP; **exemple**: J'ai été frappé et emmené.
+- La voix passive verbal: verbe ayant un sens passif par nature; **exemple**: J'ai subi un interrogatoire. ")
 - La voix passive factice : se + faire + Particpe Passé; **exemple**: On s'est fait frappé. 
 - Les adjectifs passifs : -ible/-able; **exemple**: visible (il y a des exceptions).
 - Plus d'information sur la voix passive en Français : https://hal.archives-ouvertes.fr/halshs-01465258/ 
